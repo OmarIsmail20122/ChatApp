@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     
-    
+    @StateObject private var newMessageViewModel = InboxViewModel()
     var body: some View {
         NavigationStack{
             ZStack(alignment: .bottomTrailing){
@@ -17,9 +17,7 @@ struct InboxView: View {
                     ForEach(0 ..< 5){ _ in
                         HStack(spacing:20){
                             
-                        Image("coffe")
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
+                            CirculeProfileImage(size: .medium, userModel: UserModel.MOK_DATA)
                             
                             VStack(alignment: .leading, spacing:10){
                                 Text("OmarIsmail")
@@ -27,7 +25,7 @@ struct InboxView: View {
                                     .font(.system(size: 16 ))
                                     .font(.title3)
                                 Text("Hello Omar")
-                                    .font(.system(size: 13 , weight: .bold))
+                                    .font(.system(size: 13 , weight: .medium))
                                     .foregroundColor(.gray)
                             }
                             Spacer()
@@ -37,9 +35,28 @@ struct InboxView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                }
-                ButtonItemsTralling(imageName: "plus.bubble.fill")
-            }.toolbar{
+                }.listStyle(PlainListStyle())
+                    .padding(.top)
+                Button(action: {
+                    newMessageViewModel.showNewMessage.toggle()
+                }, label: {
+                    RoundedRectangle(cornerRadius: 20 )
+                        .fill(Color(.darkGray))
+                        .frame(width: 70 , height: 70)
+                        .padding()
+                        .overlay(content: {
+                            Image(systemName:"plus.bubble.fill" )
+                                .resizable()
+                                .foregroundColor(Color("buttonColor"))
+                                .frame(width: 30 , height:  30)
+                        })
+                })
+//                ButtonItemsTralling(imageName: "plus.bubble.fill")
+            }
+            .fullScreenCover(isPresented: $newMessageViewModel.showNewMessage){
+                NewMessageView()
+            }
+            .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
                     Text("WhatsApp")
                         .font(.title)
