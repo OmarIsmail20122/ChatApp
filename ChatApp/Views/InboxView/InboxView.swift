@@ -15,28 +15,34 @@ struct InboxView: View {
             ZStack(alignment: .bottomTrailing){
                 List{
                     ForEach(0 ..< 5){ _ in
-                        HStack(spacing:20){
-                            
-                            CirculeProfileImage(size: .medium, userModel: UserModel.MOK_DATA)
-                            
-                            VStack(alignment: .leading, spacing:10){
-                                Text("OmarIsmail")
-                                    .foregroundColor(Color("darkMode"))
-                                    .font(.system(size: 16 ))
-                                    .font(.title3)
-                                Text("Hello Omar")
-                                    .font(.system(size: 13 , weight: .medium))
+                        NavigationLink(destination: {
+                            ChatView().navigationBarBackButtonHidden()
+                        }, label: {
+                            HStack(spacing:20){
+                                
+                                CirculeProfileImage(size: .medium, userModel: UserModel.MOK_DATA)
+                                
+                                VStack(alignment: .leading, spacing:10){
+                                    Text("OmarIsmail")
+                                        .foregroundColor(Color("darkMode"))
+                                        .font(.system(size: 16 ))
+                                        .font(.title3)
+                                    Text("Hello Omar")
+                                        .font(.system(size: 13 , weight: .medium))
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                                
+                                Text("04/05/2024")
+                                    .font(.subheadline)
                                     .foregroundColor(.gray)
                             }
-                            Spacer()
-                            
-                            Text("04/05/2024")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
                     }
-                }.listStyle(PlainListStyle())
-                    .padding(.top)
+                    )
+                }
+           }
+                .listStyle(PlainListStyle())
+                .padding(.top)
                 Button(action: {
                     newMessageViewModel.showNewMessage.toggle()
                 }, label: {
