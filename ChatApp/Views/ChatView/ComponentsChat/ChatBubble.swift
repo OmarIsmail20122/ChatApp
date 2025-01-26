@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ChatBubble : Shape {
+    let isFromCurrentUser : Bool
+    
     func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topRight , .topLeft , .bottomLeft] , cornerRadii: CGSize(width: 14, height: 14))
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topRight , .topLeft ,isFromCurrentUser ? .bottomLeft : .bottomRight] , cornerRadii: CGSize(width: 14, height: 14))
         
         return Path(path.cgPath)
     }

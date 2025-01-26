@@ -14,10 +14,10 @@ struct ChatView: View {
         VStack{
             ScrollView{
                 VStack{
-                    ForEach(0..<1) { _ in
+                    ForEach(MessageGroupModel.MOCK_GROUP_MESSAGE , id: \.self) { group in
                         Section{
-                            ForEach(0..<3){_ in
-                                MessageSendStyle()
+                            ForEach(group.messages){message in
+                                MessageSendStyle(isFromCurrentUser: Bool.random() , message: message)
                             }
                         }
                         header : {
@@ -25,7 +25,7 @@ struct ChatView: View {
                                 .fill(Color(.systemGray5))
                                 .frame(width:130 , height: 40)
                                 .overlay{
-                                    Text("11/5/2020")
+                                    Text(group.data.chatTimesToString())
                                     
                                 }
                         }
@@ -71,7 +71,7 @@ struct ChatView: View {
                             chatVM.tabbarVisiblity = .visible
                             dismiss()
                         }){
-                            Image(systemName: "arrow.backward")
+                            Image(systemName: "chevron.left")
                                 .foregroundColor(.white)
                         }
                         CirculeProfileImage(size: .xSmale, userModel: UserModel.MOK_DATA)

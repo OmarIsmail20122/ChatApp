@@ -7,6 +7,7 @@
 import SwiftUI
 
 enum SizeImageProfile {
+    case xxxSmale
     case xxSmale
     case xSmale
     case smale
@@ -16,6 +17,8 @@ enum SizeImageProfile {
     
     var dimintion : CGFloat {
         switch self {
+        case.xxxSmale :
+            return 24
         case .xxSmale:
            return 28
         case .xSmale:

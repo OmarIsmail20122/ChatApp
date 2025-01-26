@@ -54,7 +54,7 @@ struct NewMessageView: View {
                         Button(action: {
                             dismiss()
                         }){
-                            Image(systemName: "arrow.backward")
+                            Image(systemName: "chevron.left")
                         }
                         VStack(alignment: .leading, spacing: 5){
                             Text("Select Contact")
