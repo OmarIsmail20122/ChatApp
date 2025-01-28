@@ -36,14 +36,14 @@ struct SettingView: View {
                     .padding(.bottom , 10)
                     .padding(.top , 5)
                 VStack(alignment: .leading ,spacing:24){
-                    ForEach(SettingOptions.allCases) { options in
+                    ForEach(SettingsOptions.allCases) { options in
                         Button(action: {
                             if options == .logout {
                               settingVM.logout()
                             }
                         }){
                             HStack(spacing : 24){
-                                Image(systemName: options.image)
+                                Image(systemName: options.imageName)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width:  25 ,height: 25)

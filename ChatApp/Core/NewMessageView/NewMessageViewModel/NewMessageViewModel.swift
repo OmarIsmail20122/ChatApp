@@ -9,4 +9,6 @@ import Foundation
 
 class InboxViewModel : ObservableObject {
     @Published var showNewMessage : Bool = false
+    
+    
 }

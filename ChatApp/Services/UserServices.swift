@@ -30,6 +30,12 @@ class UserSrvice {
     }
     
     @MainActor
+    func fetchAllContacts() async throws -> [UserModel] {
+        let snapshot = try await Firestore.firestore().collection("users").getDocuments()
+        return snapshot.documents.compactMap({ try? $0.data(as: UserModel.self) })
+    }
+    
+    @MainActor
     func updateProfileUserImage (withimageUrl imageUrl : String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         try await Firestore.firestore().collection("users").document(uid).updateData(["profileImage" : imageUrl])

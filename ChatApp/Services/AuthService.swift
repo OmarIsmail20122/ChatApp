@@ -57,14 +57,9 @@ class AuthService {
     }
     
     func logout () {
-        do {
-            try?  Auth.auth().signOut()
-              self.userSession = nil
-              UserSrvice.shared.currentUser = nil
-            print("Success Logout")
-        }catch {
-            print("Error When Logout: \(error.localizedDescription)")
-        }
-        
+        try?  Auth.auth().signOut()
+          self.userSession = nil
+          UserSrvice.shared.currentUser = nil
+        print("Success Logout")
     }
 }
