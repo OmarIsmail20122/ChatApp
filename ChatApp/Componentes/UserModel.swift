@@ -17,5 +17,5 @@ struct UserModel : Codable , Identifiable ,Hashable {
 }
 
 extension UserModel {
-    static let MOK_DATA = UserModel(fullName: "OmarIsmail", phoneNumber: "+201016481694", email: "omar.bermawy2001@gmail.com" , profileImageUrl: "coffe")
+    static let MOK_DATA = UserModel(fullName: "OmarIsmail", phoneNumber: "+201016481694", email: "omar.bermawy2001@gmail.com" , profileImageUrl: nil)
 }

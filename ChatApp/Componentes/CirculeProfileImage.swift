@@ -5,6 +5,8 @@
 //  Created by MacBookPro on 05/01/2025.
 //
 import SwiftUI
+import SDWebImage
+import SDWebImageSwiftUI
 
 enum SizeImageProfile {
     case xxxSmale
@@ -46,7 +48,7 @@ struct CirculeProfileImage: View {
     var body: some View {
         /// Handling If Profile image is nil or not if nil Using Else if not nil using profile Image
         if let profileImage = userModel?.profileImageUrl {
-            Image(profileImage)
+            WebImage(url: URL(string: profileImage))
                 .resizable()
                 .frame(width: size.dimintion , height: size.dimintion)
                 .scaledToFill()

@@ -17,6 +17,7 @@ class UserSrvice {
         Task { try await fetchCurrentUser() }
     }
     
+    @MainActor
     func fetchCurrentUser () async throws {
         do {
             guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -26,5 +27,12 @@ class UserSrvice {
         }catch {
             print("Faild to featch UserData")
         }
+    }
+    
+    @MainActor
+    func updateProfileUserImage (withimageUrl imageUrl : String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        try await Firestore.firestore().collection("users").document(uid).updateData(["profileImage" : imageUrl])
+        self.currentUser?.profileImageUrl = imageUrl
     }
 }

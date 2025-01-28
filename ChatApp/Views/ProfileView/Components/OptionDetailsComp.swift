@@ -34,7 +34,7 @@ struct OptionDetailsComp: View {
                 .frame(width: 20 , height:  20)
                 .foregroundColor(.gray)
                 .padding(.top , secondSubtitle != "" ? 12 : 0)
-            VStack(alignment: .leading){
+            VStack(alignment: .leading , spacing: 10){
                 Text(title)
                     .foregroundColor(Color(.gray))
                     .font(.headline)

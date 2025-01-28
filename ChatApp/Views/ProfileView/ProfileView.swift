@@ -6,26 +6,38 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var profileVM = ProfileViewModel()
     var body: some View {
         VStack{
-            ZStack(alignment: .bottomTrailing){
-                CirculeProfileImage(size: .xLarge, userModel:UserModel.MOK_DATA)
-                Circle()
-                    .foregroundColor(Color(.darkGray))
-                    .frame(width:  40 , height: 40)
-                    .overlay{
-                        Image(systemName: "camera.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(.white)
-                            .frame(width: 25 , height: 25)
+            Button(action: {
+                profileVM.showImagePicker.toggle()
+            }){
+                ZStack(alignment: .bottomTrailing){
+                    ZStack{
+                        CirculeProfileImage(size: .xLarge, userModel:UserModel.MOK_DATA)
+                        if let profileImage = profileVM.profileImage {
+                            profileImage
+                                .resizable()
+                                .frame(width: 120 , height: 120)
+                                .scaledToFill()
+                                .clipShape(Circle())
+                        }
                     }
-               
-                    
+                    Circle()
+                        .foregroundColor(Color(.darkGray))
+                        .frame(width:  40 , height: 40)
+                        .overlay{
+                            Image(systemName: "camera.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.white)
+                                .frame(width: 25 , height: 25)
+                        }                        
+                }
             }
             .padding(.vertical , 40)
             
@@ -57,6 +69,7 @@ struct ProfileView: View {
                 .foregroundColor(.white)
             }
         }
+        .photosPicker(isPresented: $profileVM.showImagePicker, selection: $profileVM.selectedImage)
     }
 }
 

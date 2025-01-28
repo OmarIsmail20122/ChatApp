@@ -23,6 +23,10 @@ class AuthService {
         let result = try await Auth.auth().createUser(withEmail: email, password: password)
         self.userSession = result.user
         try await uploadData(email: email, fullName: fullName, phone: phone, id: result.user.uid)
+        print("User Data Create Success : \(result.user)")
+        print("User ID: \(result.user.uid)")
+        print("User Email: \(result.user.email ?? "No Email")")
+        print("Additional Info: \(result.additionalUserInfo?.profile ?? [:])")
     }
     
     private func uploadData(email : String , fullName : String , phone : String , id : String) async throws {
@@ -37,6 +41,10 @@ class AuthService {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             loadUserData()
+            print("User Data Login Success : \(result.user)")
+            print("User ID: \(result.user.uid)")
+            print("User Email: \(result.user.email ?? "No Email")")
+            print("Additional Info: \(result.additionalUserInfo?.profile ?? [:])")
         } catch {
             print("Faild to login \(error.localizedDescription)")
         }
@@ -49,8 +57,14 @@ class AuthService {
     }
     
     func logout () {
-      try?  Auth.auth().signOut()
-        self.userSession = nil
-        UserSrvice.shared.currentUser = nil
+        do {
+            try?  Auth.auth().signOut()
+              self.userSession = nil
+              UserSrvice.shared.currentUser = nil
+            print("Success Logout")
+        }catch {
+            print("Error When Logout: \(error.localizedDescription)")
+        }
+        
     }
 }
